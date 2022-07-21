@@ -1,0 +1,14 @@
+swagger: "2.0"
+info:
+  title: echo server
+  version: 0.0.1
+paths:
+  /hello:
+    get:
+      summary: returning hello world.
+      description: returning hello world for test.
+      responses:
+        "200":
+          description: return hellow world.
+          schema:
+            type: string
