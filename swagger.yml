@@ -12,3 +12,40 @@ paths:
           description: return hellow world.
           schema:
             type: string
+  /echo:
+    post:
+      summary: echo.
+      description: echo.
+      parameters:
+        - name: message
+          in: body
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: return the message.
+          schema:
+            type: string
+  /board:
+    post:
+      summary: post a message to a board.
+      description: post a message to a board.
+      tags:
+      - board
+      operationId: PostMessage
+      parameters:
+        - name: massage
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            required:
+              - message
+      responses:
+        "200":
+          description: message is successfully stored.
+

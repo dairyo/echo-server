@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 
 	"github.com/shinsuke-nara/echo-server/restapi/operations"
+	"github.com/shinsuke-nara/echo-server/restapi/operations/board"
 )
 
 //go:generate swagger generate server --target ../../echo-server --name EchoServer --spec ../swagger.yml --principal interface{} --exclude-main
@@ -40,6 +41,16 @@ func configureAPI(api *operations.EchoServerAPI) http.Handler {
 	if api.GetHelloHandler == nil {
 		api.GetHelloHandler = operations.GetHelloHandlerFunc(func(params operations.GetHelloParams) middleware.Responder {
 			return middleware.NotImplemented("operation operations.GetHello has not yet been implemented")
+		})
+	}
+	if api.PostEchoHandler == nil {
+		api.PostEchoHandler = operations.PostEchoHandlerFunc(func(params operations.PostEchoParams) middleware.Responder {
+			return middleware.NotImplemented("operation operations.PostEcho has not yet been implemented")
+		})
+	}
+	if api.BoardPostMessageHandler == nil {
+		api.BoardPostMessageHandler = board.PostMessageHandlerFunc(func(params board.PostMessageParams) middleware.Responder {
+			return middleware.NotImplemented("operation board.PostMessage has not yet been implemented")
 		})
 	}
 

@@ -18,6 +18,8 @@ import (
 	"github.com/go-openapi/spec"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+
+	"github.com/shinsuke-nara/echo-server/restapi/operations/board"
 )
 
 // NewEchoServerAPI creates a new EchoServer instance
@@ -44,6 +46,12 @@ func NewEchoServerAPI(spec *loads.Document) *EchoServerAPI {
 
 		GetHelloHandler: GetHelloHandlerFunc(func(params GetHelloParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetHello has not yet been implemented")
+		}),
+		PostEchoHandler: PostEchoHandlerFunc(func(params PostEchoParams) middleware.Responder {
+			return middleware.NotImplemented("operation PostEcho has not yet been implemented")
+		}),
+		BoardPostMessageHandler: board.PostMessageHandlerFunc(func(params board.PostMessageParams) middleware.Responder {
+			return middleware.NotImplemented("operation board.PostMessage has not yet been implemented")
 		}),
 	}
 }
@@ -83,6 +91,10 @@ type EchoServerAPI struct {
 
 	// GetHelloHandler sets the operation handler for the get hello operation
 	GetHelloHandler GetHelloHandler
+	// PostEchoHandler sets the operation handler for the post echo operation
+	PostEchoHandler PostEchoHandler
+	// BoardPostMessageHandler sets the operation handler for the post message operation
+	BoardPostMessageHandler board.PostMessageHandler
 
 	// ServeError is called when an error is received, there is a default handler
 	// but you can set your own with this
@@ -162,6 +174,12 @@ func (o *EchoServerAPI) Validate() error {
 
 	if o.GetHelloHandler == nil {
 		unregistered = append(unregistered, "GetHelloHandler")
+	}
+	if o.PostEchoHandler == nil {
+		unregistered = append(unregistered, "PostEchoHandler")
+	}
+	if o.BoardPostMessageHandler == nil {
+		unregistered = append(unregistered, "board.PostMessageHandler")
 	}
 
 	if len(unregistered) > 0 {
@@ -255,6 +273,14 @@ func (o *EchoServerAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/hello"] = NewGetHello(o.context, o.GetHelloHandler)
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/echo"] = NewPostEcho(o.context, o.PostEchoHandler)
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/board"] = board.NewPostMessage(o.context, o.BoardPostMessageHandler)
 }
 
 // Serve creates a http handler to serve the API over HTTP

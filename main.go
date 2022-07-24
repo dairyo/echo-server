@@ -18,6 +18,7 @@ func main() {
 	// create new service API
 	api := operations.NewEchoServerAPI(swaggerSpec)
 	api.GetHelloHandler = operations.GetHelloHandlerFunc(restimpl.GetHello)
+	api.PostEchoHandler = operations.PostEchoHandlerFunc(restimpl.PostEcho)
 	server := restapi.NewServer(api)
 	defer server.Shutdown()
 	server.Port = 80

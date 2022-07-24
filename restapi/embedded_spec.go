@@ -24,6 +24,63 @@ func init() {
     "version": "0.0.1"
   },
   "paths": {
+    "/board": {
+      "post": {
+        "description": "post a message to a board.",
+        "tags": [
+          "board"
+        ],
+        "summary": "post a message to a board.",
+        "operationId": "PostMessage",
+        "parameters": [
+          {
+            "name": "massage",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "message"
+              ],
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "message is successfully stored."
+          }
+        }
+      }
+    },
+    "/echo": {
+      "post": {
+        "description": "echo.",
+        "summary": "echo.",
+        "parameters": [
+          {
+            "name": "message",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "return the message.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
     "/hello": {
       "get": {
         "description": "returning hello world for test.",
@@ -47,6 +104,63 @@ func init() {
     "version": "0.0.1"
   },
   "paths": {
+    "/board": {
+      "post": {
+        "description": "post a message to a board.",
+        "tags": [
+          "board"
+        ],
+        "summary": "post a message to a board.",
+        "operationId": "PostMessage",
+        "parameters": [
+          {
+            "name": "massage",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "message"
+              ],
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "message is successfully stored."
+          }
+        }
+      }
+    },
+    "/echo": {
+      "post": {
+        "description": "echo.",
+        "summary": "echo.",
+        "parameters": [
+          {
+            "name": "message",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "return the message.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
     "/hello": {
       "get": {
         "description": "returning hello world for test.",
