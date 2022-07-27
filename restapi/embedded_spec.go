@@ -25,6 +25,42 @@ func init() {
   },
   "paths": {
     "/board": {
+      "get": {
+        "tags": [
+          "board"
+        ],
+        "summary": "get list of message in a board.",
+        "operationId": "ListMessage",
+        "responses": {
+          "200": {
+            "description": "messages successfully listed.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "message"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
       "post": {
         "description": "post a message to a board.",
         "tags": [
@@ -53,6 +89,12 @@ func init() {
         "responses": {
           "200": {
             "description": "message is successfully stored."
+          },
+          "500": {
+            "description": "server error.",
+            "schema": {
+              "type": "string"
+            }
           }
         }
       }
@@ -105,6 +147,30 @@ func init() {
   },
   "paths": {
     "/board": {
+      "get": {
+        "tags": [
+          "board"
+        ],
+        "summary": "get list of message in a board.",
+        "operationId": "ListMessage",
+        "responses": {
+          "200": {
+            "description": "messages successfully listed.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ListMessageOKBodyItems0"
+              }
+            }
+          },
+          "500": {
+            "description": "server error.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
       "post": {
         "description": "post a message to a board.",
         "tags": [
@@ -133,6 +199,12 @@ func init() {
         "responses": {
           "200": {
             "description": "message is successfully stored."
+          },
+          "500": {
+            "description": "server error.",
+            "schema": {
+              "type": "string"
+            }
           }
         }
       }
@@ -172,6 +244,23 @@ func init() {
               "type": "string"
             }
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ListMessageOKBodyItems0": {
+      "type": "object",
+      "required": [
+        "id",
+        "message"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
         }
       }
     }

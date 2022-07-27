@@ -48,4 +48,32 @@ paths:
       responses:
         "200":
           description: message is successfully stored.
+        "500":
+          description: server error.
+          schema:
+            type: string
 
+    get:
+      summary: get list of message in a board.
+      tags:
+      - board
+      operationId: ListMessage
+      responses:
+        "200":
+          description: messages successfully listed.
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                message:
+                  type: string
+              required:
+              - id
+              - message
+        "500":
+          description: server error.
+          schema:
+            type: string

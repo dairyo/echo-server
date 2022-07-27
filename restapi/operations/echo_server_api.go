@@ -47,6 +47,9 @@ func NewEchoServerAPI(spec *loads.Document) *EchoServerAPI {
 		GetHelloHandler: GetHelloHandlerFunc(func(params GetHelloParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetHello has not yet been implemented")
 		}),
+		BoardListMessageHandler: board.ListMessageHandlerFunc(func(params board.ListMessageParams) middleware.Responder {
+			return middleware.NotImplemented("operation board.ListMessage has not yet been implemented")
+		}),
 		PostEchoHandler: PostEchoHandlerFunc(func(params PostEchoParams) middleware.Responder {
 			return middleware.NotImplemented("operation PostEcho has not yet been implemented")
 		}),
@@ -91,6 +94,8 @@ type EchoServerAPI struct {
 
 	// GetHelloHandler sets the operation handler for the get hello operation
 	GetHelloHandler GetHelloHandler
+	// BoardListMessageHandler sets the operation handler for the list message operation
+	BoardListMessageHandler board.ListMessageHandler
 	// PostEchoHandler sets the operation handler for the post echo operation
 	PostEchoHandler PostEchoHandler
 	// BoardPostMessageHandler sets the operation handler for the post message operation
@@ -174,6 +179,9 @@ func (o *EchoServerAPI) Validate() error {
 
 	if o.GetHelloHandler == nil {
 		unregistered = append(unregistered, "GetHelloHandler")
+	}
+	if o.BoardListMessageHandler == nil {
+		unregistered = append(unregistered, "board.ListMessageHandler")
 	}
 	if o.PostEchoHandler == nil {
 		unregistered = append(unregistered, "PostEchoHandler")
@@ -273,6 +281,10 @@ func (o *EchoServerAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/hello"] = NewGetHello(o.context, o.GetHelloHandler)
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/board"] = board.NewListMessage(o.context, o.BoardListMessageHandler)
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}

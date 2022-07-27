@@ -43,6 +43,11 @@ func configureAPI(api *operations.EchoServerAPI) http.Handler {
 			return middleware.NotImplemented("operation operations.GetHello has not yet been implemented")
 		})
 	}
+	if api.BoardListMessageHandler == nil {
+		api.BoardListMessageHandler = board.ListMessageHandlerFunc(func(params board.ListMessageParams) middleware.Responder {
+			return middleware.NotImplemented("operation board.ListMessage has not yet been implemented")
+		})
+	}
 	if api.PostEchoHandler == nil {
 		api.PostEchoHandler = operations.PostEchoHandlerFunc(func(params operations.PostEchoParams) middleware.Responder {
 			return middleware.NotImplemented("operation operations.PostEcho has not yet been implemented")
